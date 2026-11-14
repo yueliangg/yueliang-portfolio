@@ -407,12 +407,12 @@ const P = [
   mine:'I wrote all 8 analyses. I also migrated the book data into MongoDB and ran a research study on preventing double loans with MySQL row-level locking.',
   tools:'MySQL, SQL, MongoDB, Excel', repo:'library-data-warehouse-sql', cover:{motif:'library'},
   figs:[['motif:library','Average loans per active borrower, 2020 to 2025',1],['assets/lib_schema.jpg','The star schema'],['assets/lib_a8.jpg','Active borrowers and loans per borrower by year']]},
- {id:'energy', cat:'data', title:'Energy Forecasting', sub:'Five years of monthly utility use', tags:['Python','SARIMA','Holt-Winters'], role:'Individual',
-  one:'Forecast electricity use within 3.3% error, five years ahead.',
+ {id:'energy', cat:'data', title:'Energy Forecasting', sub:'Five years of monthly utility use', tags:['Python','SARIMA','Time series'], role:'Individual',
+  one:'Forecast electricity use within 2.6% error on unseen test data.',
   intro:'Forecast a building’s monthly gas, electricity and water use for the next 60 months from 33 years of history (1990 to 2023).',
   problem:'Budget planning needs to know what each utility will cost years ahead. The three series behave very differently, so one model would not fit all of them.',
-  steps:['Decomposed each series into trend, seasonality and noise, and found the three utilities move independently.','Split the data in time order into train, validation and test sets, and used ADF tests to check stationarity.','Compared ARIMA, SARIMA and Holt-Winters against Seasonal Naive and Mean benchmarks, tuning orders with grid search.','Evaluated the final models once on unseen test data, then produced 60-month forecasts with 95% intervals.'],
-  stats:[['3.3%','electricity test error (MAPE)'],['76%','less error from adding seasonality'],['<1%','extra gain from tuning']],
+  steps:['Decomposed each series into trend, seasonality and noise, and found the three utilities move independently.','Split the data in time order and used ADF tests and rolling statistics to difference only electricity.','Compared ARIMA, SARIMA and Holt-Winters against Seasonal Naive and Mean benchmarks, choosing each model by its average error over four validation windows.','Evaluated the final models once on unseen test data, checked their residuals, then produced 60-month forecasts with 95% intervals.'],
+  stats:[['2.6%','electricity test error (MAPE)'],['76%','less error from adding seasonality'],['11%','less error by validating on four windows, not one']],
   tools:'Python, pandas, statsmodels, scikit-learn', repo:'energy-consumption-forecasting', cover:{motif:'energy'},
   figs:[['assets/en_forecast.jpg','60-month forecasts with 95% confidence intervals',1],['assets/en_season.jpg','Validation error with and without seasonality'],['assets/en_decomp.jpg','Electricity: trend, seasonality and residuals']]},
  {id:'segments', cat:'data', title:'Customer Segmentation', sub:'Six groups from 200 mall customers', tags:['scikit-learn','K-Means','Clustering'], role:'Individual',
@@ -517,10 +517,10 @@ function motif(kind){
   }
   if(kind==='energy'){
     let d='M30 190', band='', pts=[];
-    for(let x=30;x<=370;x+=3){const t=(x-30)/340; const y=200-t*70-Math.sin(t*Math.PI*18)*18*(.7+t*.5); pts.push([x,y]); d+=` L${x} ${y.toFixed(1)}`;}
+    for(let x=30;x<=370;x+=3){const t=(x-30)/340; const tt=Math.min(t,(270-30)/340); const y=200-tt*70-Math.sin(t*Math.PI*18)*18*(.7+t*.5); pts.push([x,y]); d+=` L${x} ${y.toFixed(1)}`;}
     const fx=270; const up=pts.filter(p=>p[0]>=fx).map(p=>`${p[0]} ${(p[1]-14-(p[0]-fx)*.12).toFixed(1)}`), dn=pts.filter(p=>p[0]>=fx).map(p=>`${p[0]} ${(p[1]+14+(p[0]-fx)*.12).toFixed(1)}`).reverse();
     band=`<path d="M${up.join(' L')} L${dn.join(' L')} Z" fill="#7C5CFF" opacity=".16"/>`;
-    g+=band+`<line x1="${fx}" y1="60" x2="${fx}" y2="240" stroke="#7C5CFF" stroke-dasharray="4 5" opacity=".5"/><path d="${d}" fill="none" stroke="#5B3F9E" stroke-width="2.4" stroke-linejoin="round"/><text x="${fx+8}" y="74" font-family="JetBrains Mono,monospace" font-size="10" fill="#5E5575">FORECAST</text><text x="34" y="44" font-family="Instrument Serif,serif" font-style="italic" font-size="38" fill="#5B3F9E">3.3%</text><text x="34" y="64" font-family="Outfit,sans-serif" font-size="12" fill="#5E5575">electricity test error</text>`;
+    g+=band+`<line x1="${fx}" y1="60" x2="${fx}" y2="240" stroke="#7C5CFF" stroke-dasharray="4 5" opacity=".5"/><path d="${d}" fill="none" stroke="#5B3F9E" stroke-width="2.4" stroke-linejoin="round"/><text x="${fx+8}" y="74" font-family="JetBrains Mono,monospace" font-size="10" fill="#5E5575">FORECAST</text><text x="34" y="44" font-family="Instrument Serif,serif" font-style="italic" font-size="38" fill="#5B3F9E">2.6%</text><text x="34" y="64" font-family="Outfit,sans-serif" font-size="12" fill="#5E5575">electricity test error</text>`;
   }
   if(kind==='segments'){
     let s=11; const r=()=>{s=(s*9301+49297)%233280; return s/233280;};
