@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Yue Liang</title>
+<meta name="description" content="Yue Liang (Thawdar Lin Wai), Applied AI & Analytics student at Singapore Polytechnic. Data analytics and machine learning projects.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%239C84FF'/%3E%3Cstop offset='1' stop-color='%234A4AE8'/%3E%3C/linearGradient%3E%3Cmask id='m'%3E%3Crect width='64' height='64' fill='white'/%3E%3Ccircle cx='42' cy='24' r='22' fill='black'/%3E%3C/mask%3E%3C/defs%3E%3Ccircle cx='32' cy='32' r='26' fill='url(%23g)' mask='url(%23m)'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Dreamy lavender world, one theme by choice. Layout: liquid hero, horizontal work slider, icy-blue about, lavender contact. */
+  --lav:#F4F0FB; --ice:#EDF1FF; --mist:#F7ECF6; --card:#FFFFFF;
+  --plum:#2A2140; --muted:#5E5575; --line:rgba(42,33,64,.12);
+  --violet:#7C5CFF; --indigo:#5B3F9E; --soft-violet:#CDBFFF;
+  --display:"Instrument Serif", "Iowan Old Style", Georgia, serif;
+  --body:"Outfit", "Segoe UI", system-ui, sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --gutter:clamp(18px, 5vw, 72px);
+  --radius:22px;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--lav);color:var(--plum);font-family:var(--body);font-size:17px;line-height:1.6;font-weight:350}
+body.locked{overflow:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:2.5px solid var(--violet);outline-offset:3px;border-radius:6px}
+.mono{font-family:var(--mono);font-size:.74rem;letter-spacing:.14em;text-transform:uppercase}
+.eyebrow{font-family:var(--mono);font-size:.76rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin:0 0 18px}
+h1,h2,h3{font-family:var(--display);font-weight:400;text-wrap:balance;margin:0}
+em.accent{font-style:italic;color:var(--indigo);font-weight:400}
+.wrap{max-width:1240px;margin:0 auto;padding:0 var(--gutter)}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ---------- Nav ---------- */
+.nav{position:fixed;inset:0 0 auto 0;z-index:40;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:14px var(--gutter);background:rgba(244,240,251,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid transparent;transition:border-color .3s}
+.nav.scrolled{border-bottom-color:var(--line)}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.brand svg{width:30px;height:30px}
+.brand b{font-family:var(--display);font-weight:400;font-size:1.5rem;letter-spacing:.01em}
+.brand small{display:block;font-size:.72rem;color:var(--muted);line-height:1.1;margin-top:1px}
+.nav-links{display:flex;align-items:center;gap:28px}
+.nav-links a{text-decoration:none;font-size:.98rem;position:relative}
+.nav-links a::after,.ulink::after{content:"";position:absolute;left:0;right:0;bottom:-3px;height:1.5px;background:currentColor;transform:scaleX(0);transform-origin:right;transition:transform .35s ease}
+.nav-links a:hover::after,.ulink:hover::after{transform:scaleX(1);transform-origin:left}
+.btn{display:inline-flex;align-items:center;gap:10px;border-radius:999px;padding:11px 20px;font:inherit;font-size:.96rem;cursor:pointer;text-decoration:none;border:1.5px solid var(--plum);background:transparent;color:var(--plum);transition:background .25s,color .25s,transform .25s}
+.btn:hover{transform:translateY(-2px)}
+.btn.solid{background:var(--plum);color:#fff}
+.btn.solid:hover{background:var(--indigo);border-color:var(--indigo)}
+.btn.ghost{border-color:rgba(74,74,232,.35);color:var(--indigo)}
+.btn.ghost:hover{background:#fff}
+.arrow{display:inline-block;transition:transform .3s}
+a:hover .arrow,button:hover .arrow{transform:translate(3px,-3px)}
+.resume{position:relative}
+.resume-menu{position:absolute;right:0;top:calc(100% + 10px);background:#fff;border:1px solid var(--line);border-radius:16px;padding:8px;min-width:250px;box-shadow:0 18px 50px rgba(42,33,64,.14);display:none}
+.resume-menu.open{display:block}
+.resume-menu a{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border-radius:10px;text-decoration:none}
+.resume-menu a:hover{background:var(--lav)}
+.resume-menu span.mono{color:var(--muted);font-size:.66rem}
+
+/* ---------- Hero ---------- */
+.hero{position:relative;overflow:hidden;padding:clamp(130px,18vh,190px) 0 clamp(70px,10vh,110px);background:radial-gradient(60% 70% at 78% 18%,#fff 0,rgba(255,255,255,0) 60%),radial-gradient(50% 60% at 10% 90%,var(--mist) 0,rgba(247,236,246,0) 70%),linear-gradient(160deg,var(--lav),var(--ice))}
+#liquid{position:absolute;inset:0;width:100%;height:100%;display:block}
+.hero .wrap{position:relative;z-index:2;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:40px;align-items:center}
+.hero h1{font-size:clamp(3.8rem,10vw,8.4rem);line-height:.95;font-weight:400;letter-spacing:-.01em}
+.hero .legal{font-family:var(--mono);font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:14px 0 0}
+.hero h2{font-size:clamp(1.9rem,4vw,3.4rem);line-height:1.15;margin-top:clamp(26px,4vh,40px);font-weight:400;max-width:15em}
+.hero p.lead{max-width:34em;color:var(--muted);font-size:1.08rem;margin:22px 0 32px}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:12px}
+.moon3d{width:clamp(150px,20vw,250px);aspect-ratio:1;perspective:900px;position:relative}
+.moon3d .spin{width:100%;height:100%;animation:sway 9s ease-in-out infinite,bob 7s ease-in-out infinite;transform-style:preserve-3d}
+.moon3d svg{width:100%;height:100%;filter:drop-shadow(0 24px 40px rgba(124,92,255,.32))}
+.moon3d .ring{position:absolute;inset:18% -6%;border:1.5px solid rgba(124,92,255,.28);border-radius:50%;transform:rotate(-18deg);animation:ringPulse 7s ease-in-out infinite}
+@keyframes sway{0%,100%{transform:rotateY(-38deg) rotateZ(-6deg)}50%{transform:rotateY(38deg) rotateZ(6deg)}}
+@keyframes bob{50%{translate:0 -12px}}
+@keyframes ringPulse{50%{transform:rotate(-12deg) scale(1.04);opacity:.6}}
+
+/* wavy words */
+.wave{display:inline-block;position:relative;white-space:nowrap;font-style:italic;font-weight:400}
+.wave .ch{display:inline-block;will-change:transform}
+.spark{position:absolute;width:14px;height:14px;pointer-events:none;color:var(--violet)}
+.spark svg{width:100%;height:100%}
+
+/* ---------- Work ---------- */
+section{position:relative}
+.work{padding:clamp(80px,12vh,130px) 0 clamp(70px,10vh,110px);background:var(--lav)}
+.sec-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px 40px;margin-bottom:34px}
+.sec-head h2{font-size:clamp(2.8rem,6vw,5rem);line-height:1;letter-spacing:-.01em}
+.sec-head p{max-width:24em;color:var(--muted);margin:0}
+.toolbar{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px;margin-bottom:26px}
+.filters{display:flex;gap:6px;background:rgba(255,255,255,.6);border:1px solid var(--line);border-radius:999px;padding:5px}
+.filters button{font:inherit;font-size:.92rem;border:0;background:transparent;color:var(--muted);padding:9px 16px;border-radius:999px;cursor:pointer;transition:background .25s,color .25s}
+.filters button[aria-selected="true"]{background:var(--plum);color:#fff}
+.filters button sup{font-family:var(--mono);font-size:.62rem;margin-left:4px;opacity:.75}
+.slider-ctl{display:flex;align-items:center;gap:14px}
+.counter{font-family:var(--mono);font-size:.82rem;letter-spacing:.1em;color:var(--muted);font-variant-numeric:tabular-nums;min-width:66px;text-align:right}
+.round{width:50px;height:50px;border-radius:50%;border:1.5px solid var(--plum);background:transparent;color:var(--plum);display:grid;place-items:center;cursor:pointer;transition:background .25s,color .25s,opacity .25s}
+.round:hover:not(:disabled){background:var(--plum);color:#fff}
+.round:disabled{opacity:.3;cursor:default}
+.round svg{width:20px;height:20px}
+.track{display:flex;gap:22px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding:6px 2px 26px;scrollbar-width:none;margin:0 calc(-1 * var(--gutter));padding-left:var(--gutter);padding-right:var(--gutter);scroll-padding-left:var(--gutter)}
+.track::-webkit-scrollbar{display:none}
+.card{text-decoration:none;flex:0 0 clamp(280px,31vw,390px);scroll-snap-align:start;background:var(--card);border-radius:var(--radius);border:1px solid rgba(42,33,64,.07);box-shadow:0 2px 0 rgba(42,33,64,.02);text-align:left;font:inherit;color:inherit;cursor:pointer;padding:0;display:flex;flex-direction:column;transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s}
+.card[hidden]{display:none}
+.card:hover{transform:translateY(-6px);box-shadow:0 22px 50px rgba(74,74,232,.14)}
+.cover{position:relative;aspect-ratio:16/11;border-radius:calc(var(--radius) - 6px);margin:8px;overflow:hidden;background:linear-gradient(150deg,#EFE9FF,#E4EAFF)}
+.cover img{width:100%;height:100%;object-fit:cover;object-position:top left}
+.cover svg{width:100%;height:100%;display:block}
+.cover::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 30%,rgba(255,255,255,.85) 48%,transparent 66%);transform:translateX(-120%);pointer-events:none}
+.card.flash .cover::after{animation:flash .45s ease forwards}
+@keyframes flash{to{transform:translateX(120%)}}
+.card-body{padding:12px 22px 22px;display:flex;flex-direction:column;gap:8px;flex:1}
+.card-body .mono{color:var(--muted);font-size:.66rem}
+.card-body h3{font-size:1.9rem;line-height:1.08;font-weight:400}
+.card-body p{margin:0;color:var(--muted);font-size:.98rem;line-height:1.5}
+.card-foot{margin-top:auto;padding-top:12px;display:flex;justify-content:space-between;align-items:center;font-size:.9rem}
+.chip{font-family:var(--mono);font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;padding:5px 10px;border-radius:999px;background:var(--lav);color:var(--indigo)}
+.open-lbl{color:var(--indigo);display:inline-flex;gap:6px;align-items:center}
+.card:hover .arrow{transform:translate(3px,-3px)}
+.more{margin-top:40px;border-top:1px solid var(--line)}
+.more h3{font-family:var(--mono);font-weight:400;font-size:.76rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);padding:22px 0 8px}
+.more a{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr) auto;gap:18px;align-items:baseline;padding:16px 0;border-bottom:1px solid var(--line);text-decoration:none;transition:padding .3s,color .3s}
+.more a:hover{padding-left:10px;color:var(--indigo)}
+.more a b{font-family:var(--display);font-weight:400;font-size:1.4rem}
+.more a span{color:var(--muted);font-size:.96rem}
+
+/* ---------- About ---------- */
+.about{padding:clamp(90px,13vh,140px) 0;background:linear-gradient(180deg,var(--ice),#F4F6FF)}
+.about-grid{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:clamp(36px,6vw,90px);align-items:start}
+.photo-wrap{position:relative;max-width:440px}
+.photo{border-radius:28px;overflow:hidden;box-shadow:0 30px 70px rgba(74,74,232,.22),0 0 0 8px rgba(255,255,255,.7)}
+.photo img{width:100%;height:auto;aspect-ratio:4/5;object-fit:cover}
+.polaroid{width:180px;margin:34px 0 0 6px;background:#fff;padding:9px 9px 34px;border-radius:6px;box-shadow:0 20px 40px rgba(42,33,64,.16);transform:rotate(4deg);transition:transform .4s;position:relative}
+.polaroid:hover{transform:rotate(1deg) scale(1.03)}
+.polaroid img{width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;border-radius:3px}
+.polaroid figcaption{position:absolute;left:0;right:0;bottom:8px;text-align:center;font-family:var(--display);font-style:italic;font-size:.92rem;color:var(--muted)}
+.about-text h2{font-size:clamp(2.8rem,5.6vw,4.6rem);line-height:1}
+.about-text .legal{font-family:var(--mono);font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:10px 0 26px}
+.about-text p{max-width:33em;margin:0 0 18px;font-size:1.08rem}
+.about-text p.big{font-family:var(--display);font-size:clamp(1.5rem,2.4vw,1.9rem);line-height:1.3;font-weight:400}
+.langs{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px;align-items:center}
+.langs .mono{color:var(--muted);margin-right:4px}
+.facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(26px,4vw,56px);margin-top:clamp(90px,12vh,130px);border-top:1px solid var(--line);padding-top:36px}
+.facts h3{font-family:var(--mono);font-weight:400;font-size:.76rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:18px}
+.facts .item{margin-bottom:22px}
+.facts .item b{display:block;font-family:var(--display);font-weight:400;font-size:1.45rem;line-height:1.25;margin-bottom:4px}
+.facts .item span{display:block;color:var(--muted);font-size:.96rem;line-height:1.5}
+.facts .num{font-family:var(--display);font-size:3.2rem;font-weight:400;line-height:1;color:var(--indigo);font-variant-numeric:tabular-nums}
+.skill-group{margin-bottom:18px}
+.skill-group b{display:block;font-family:var(--mono);font-weight:500;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--violet);margin-bottom:6px}
+.skill-group span{color:var(--plum);font-size:.98rem;line-height:1.55}
+
+/* ---------- Contact ---------- */
+.contact{padding:clamp(100px,14vh,150px) 0 60px;background:radial-gradient(60% 80% at 85% 30%,#fff 0,rgba(255,255,255,0) 60%),linear-gradient(170deg,var(--lav),var(--mist))}
+.contact .wrap{position:relative}
+.contact h2{font-size:clamp(3rem,8vw,7rem);line-height:1;letter-spacing:-.01em;font-weight:400;max-width:11em}
+.contact .moon3d{position:absolute;right:var(--gutter);top:-40px;width:clamp(110px,12vw,170px)}
+@media (min-width:901px){.contact h2{max-width:calc(100% - 210px)}}
+.contact-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:26px 40px;margin-top:clamp(50px,8vh,80px);padding-top:34px;border-top:1px solid var(--line)}
+.contact-list .mono{color:var(--muted);display:block;margin-bottom:8px;font-size:.68rem}
+.contact-list .val{font-size:1.12rem;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.ulink{position:relative;text-decoration:none}
+.copy{font:inherit;font-size:.78rem;border:1px solid var(--line);background:#fff;border-radius:999px;padding:4px 11px;cursor:pointer;color:var(--indigo)}
+footer{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;margin-top:80px;padding-top:22px;border-top:1px solid var(--line);color:var(--muted)}
+footer .mono{font-size:.68rem}
+
+/* ---------- Project overlay ---------- */
+.overlay{position:fixed;inset:0;z-index:60;background:var(--lav);overflow-y:auto;overscroll-behavior:contain}
+.overlay[hidden]{display:none}
+.ov-bar{position:sticky;top:0;z-index:2;display:flex;justify-content:space-between;align-items:center;padding:14px var(--gutter);background:rgba(244,240,251,.82);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.ov-bar button{font:inherit;background:none;border:0;cursor:pointer;color:var(--plum);display:inline-flex;align-items:center;gap:8px;padding:8px 2px}
+.ov-bar .x{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--plum);justify-content:center;padding:0}
+.ov-bar .x:hover{background:var(--plum);color:#fff}
+.pd{max-width:1120px;margin:0 auto;padding:clamp(40px,7vh,80px) var(--gutter) 80px}
+.pd-in{opacity:1}
+.pd-title{font-size:clamp(3rem,8.4vw,7rem);line-height:.95;letter-spacing:-.01em;font-weight:400}
+.pd-sub{font-family:var(--display);font-style:italic;font-size:clamp(1.5rem,2.6vw,2rem);color:var(--indigo);margin:14px 0 0}
+.pd-intro{font-size:clamp(1.15rem,1.8vw,1.42rem);line-height:1.5;color:var(--muted);max-width:40em;margin:26px 0 0}
+.pd-meta{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;margin:44px 0;padding:26px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.pd-meta dt{font-family:var(--mono);font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.pd-meta dd{margin:0;font-size:1rem}
+.pd-meta dd a{color:var(--indigo)}
+.pd-hero{margin:0 0 20px;border-radius:var(--radius);overflow:hidden;background:#fff;border:1px solid rgba(42,33,64,.07)}
+.pd-hero img,.pd-hero svg{width:100%;height:auto;display:block}
+.pd-sec{display:grid;grid-template-columns:120px minmax(0,1fr);gap:24px;padding:42px 0;border-bottom:1px solid var(--line)}
+.pd-sec .n{font-family:var(--display);font-size:4rem;line-height:.9;color:var(--indigo);font-weight:400;font-variant-numeric:lining-nums}
+.pd-sec h3{font-size:2.3rem;margin-bottom:14px}
+.pd-sec p{margin:0;max-width:40em;font-size:1.08rem}
+.steps{list-style:none;margin:0;padding:0;counter-reset:s}
+.steps li{counter-increment:s;display:grid;grid-template-columns:42px minmax(0,1fr);gap:12px;padding:14px 0;border-top:1px dashed var(--line);font-size:1.06rem;max-width:44em}
+.steps li:first-child{border-top:0}
+.steps li::before{content:counter(s,decimal-leading-zero);font-family:var(--mono);font-size:.78rem;color:var(--violet);padding-top:5px}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+.stat{background:#fff;border-radius:18px;padding:22px;border:1px solid rgba(42,33,64,.07)}
+.stat b{display:block;font-family:var(--display);font-weight:400;font-size:clamp(2.3rem,4.2vw,3.4rem);line-height:1;color:var(--plum);font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.stat span{display:block;color:var(--muted);margin-top:10px;font-size:.96rem;line-height:1.4}
+.mine{margin-top:22px;padding:18px 22px;border-left:3px solid var(--violet);background:rgba(255,255,255,.65);border-radius:0 14px 14px 0;max-width:44em}
+.mine .mono{color:var(--violet);display:block;margin-bottom:6px;font-size:.66rem}
+.figs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;margin-top:42px}
+.figs figure{margin:0;background:#fff;border-radius:18px;padding:10px;border:1px solid rgba(42,33,64,.07)}
+.figs figure.wide{grid-column:1/-1}
+.figs img{border-radius:10px;width:100%}
+.figs figcaption{font-size:.9rem;color:var(--muted);padding:10px 6px 4px}
+.pd-next{display:flex;justify-content:space-between;align-items:center;gap:20px;margin-top:60px;padding:30px 0;border-top:1px solid var(--line)}
+.pd-next button{font:inherit;background:none;border:0;cursor:pointer;color:var(--plum);text-align:right}
+.pd-next button b{display:block;font-family:var(--display);font-size:clamp(1.8rem,3.4vw,2.7rem);font-weight:400}
+.pd-next button:hover b{color:var(--indigo)}
+
+/* ---------- Cursor ---------- */
+#trail{position:fixed;inset:0;pointer-events:none;z-index:90}
+#dot{position:fixed;left:0;top:0;width:10px;height:10px;margin:-5px 0 0 -5px;border-radius:50%;background:var(--indigo);pointer-events:none;z-index:91;transition:width .25s,height .25s,margin .25s,background .25s,opacity .25s;opacity:0}
+#dot.on{opacity:1}
+#dot.big{width:34px;height:34px;margin:-17px 0 0 -17px;background:rgba(124,92,255,.18);border:1.5px solid var(--violet)}
+#dot.faint{opacity:.25}
+
+/* ---------- Responsive ---------- */
+@media (max-width:900px){
+  .hero .wrap{grid-template-columns:1fr}
+  .hero .moon3d{display:none}
+  .about-grid{grid-template-columns:1fr}
+  .photo-wrap{margin:0 auto 40px;max-width:360px}
+  .facts{grid-template-columns:1fr}
+  .pd-meta{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .contact .moon3d{display:none}
+}
+@media (max-width:640px){
+  body{font-size:16px}
+  .nav-links a{display:none}
+  .brand small{display:none}
+  .card{flex-basis:82vw}
+  .stats{grid-template-columns:1fr}
+  .figs{grid-template-columns:1fr}
+  .pd-sec{grid-template-columns:1fr;gap:10px}
+  .pd-sec .n{font-size:2.4rem}
+  .more a{grid-template-columns:1fr auto}
+  .more a span:not(.arrow){grid-column:1/-1;grid-row:2}
+  .toolbar{flex-direction:column;align-items:stretch}
+  .filters{justify-content:space-between}
+  .filters button{padding:9px 10px}
+  .slider-ctl{justify-content:flex-end}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .moon3d .spin,.moon3d .ring{animation:none}
+  .track{scroll-behavior:auto}
+  *{transition-duration:.01ms !important}
+}
+</style>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <a class="brand" href="#top" aria-label="Yue Liang, back to top">
+    <svg viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9C84FF"/><stop offset="1" stop-color="#5B3F9E"/></linearGradient><mask id="lm"><rect width="64" height="64" fill="white"/><circle cx="42" cy="24" r="22" fill="black"/></mask></defs><circle cx="32" cy="32" r="26" fill="url(#lg)" mask="url(#lm)"/></svg>
+    <span><b>Yue Liang</b><small>月亮 · data &amp; AI</small></span>
+  </a>
+  <nav class="nav-links" aria-label="Main">
+    <a href="#work">Work</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+    <div class="resume">
+      <button class="btn ghost" id="resumeBtn" aria-expanded="false" aria-controls="resumeMenu">Résumé <span class="arrow">↗</span></button>
+      <div class="resume-menu" id="resumeMenu">
+        <a href="resume/Thawdar_Lin_Wai_Data_Analyst_Resume.pdf" target="_blank" rel="noopener">Data Analyst <span class="mono">PDF ↗</span></a>
+        <a href="resume/Thawdar_Lin_Wai_AI_Engineer_Resume.pdf" target="_blank" rel="noopener">AI Engineer <span class="mono">PDF ↗</span></a>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<main>
+<section class="hero" id="top" aria-labelledby="hero-name">
+  <canvas id="liquid" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div>
+      <p class="eyebrow">Applied AI &amp; Analytics · Singapore Polytechnic</p>
+      <h1 id="hero-name">Yue Liang</h1>
+      <p class="legal">Thawdar Lin Wai</p>
+      <h2>Reading the <span class="wave" data-wave>micro-expressions</span> of&nbsp;numbers.</h2>
+      <p class="lead">Year 2 student looking for data analyst and AI engineering internships. I build dashboards and models that end in a decision someone can act on.</p>
+      <div class="hero-ctas">
+        <a class="btn solid" href="#work">View my work <span class="arrow">↓</span></a>
+        <a class="btn" href="#contact">Get in touch <span class="arrow">↗</span></a>
+      </div>
+    </div>
+    <div class="moon3d" data-moon aria-hidden="true"></div>
+  </div>
+</section>
+
+<section class="work" id="work" aria-labelledby="work-title">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">01 / Selected work</p>
+        <h2 id="work-title">What the numbers <em class="accent">said.</em></h2>
+      </div>
+      <p>Twelve projects across data analytics, machine learning and web development. Open a card to see the problem, what I did and the result.</p>
+    </div>
+    <div class="toolbar">
+      <div class="filters" role="tablist" aria-label="Filter projects">
+        <button role="tab" aria-selected="true" data-filter="all">All<sup>12</sup></button>
+        <button role="tab" aria-selected="false" data-filter="data">Data Analytics<sup>06</sup></button>
+        <button role="tab" aria-selected="false" data-filter="ai">AI &amp; ML<sup>05</sup></button>
+        <button role="tab" aria-selected="false" data-filter="web">Web<sup>01</sup></button>
+      </div>
+      <div class="slider-ctl">
+        <span class="counter" id="counter" aria-live="polite">01 / 12</span>
+        <button class="round" id="prev" aria-label="Previous project"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M15 5l-7 7 7 7"/></svg></button>
+        <button class="round" id="next" aria-label="Next project"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 5l7 7-7 7"/></svg></button>
+      </div>
+    </div>
+  </div>
+  <div class="wrap"><div class="track" id="track"></div></div>
+</section>
+
+<section class="about" id="about" aria-labelledby="about-title">
+  <div class="wrap">
+    <p class="eyebrow">02 / About</p>
+    <div class="about-grid">
+      <div class="photo-wrap">
+        <div class="photo"><img src="assets/me.jpg" alt="Yue Liang on a rooftop with the Singapore skyline at night" width="720" height="900" ></div>
+      </div>
+      <div class="about-text">
+        <h2 id="about-title">Hi, I'm <em class="accent">Yue Liang.</em></h2>
+        <p class="legal">Thawdar Lin Wai</p>
+        <p class="big">As a kid, I asked a lot of "why" questions. Why this much? What does this mean? I still do, just with data now.</p>
+        <p>I like finding answers that aren't written down anywhere, a bit like reading the micro-expressions of numbers. I'm a Year 2 Applied AI &amp; Analytics student at Singapore Polytechnic, looking for an internship in data analytics or AI engineering where the work actually gets used.</p>
+        <p>Outside of data, I'm usually doing makeup or hanging out with Dashi, my cat, who asks as many questions as I do.</p>
+        <div class="langs"><span class="mono">Languages</span><span class="chip">English</span><span class="chip">Mandarin · conversational</span></div>
+        <figure class="polaroid"><img src="assets/dashi.jpg" alt="Dashi, a grey and white tabby cat, looking up curiously" width="700" height="875"><figcaption>Dashi, head of curiosity</figcaption></figure>
+      </div>
+    </div>
+
+    <div class="facts">
+      <div>
+        <h3>Education</h3>
+        <div class="item"><span class="num">3.87</span><span>cGPA out of 4.00</span></div>
+        <div class="item"><b>Singapore Polytechnic</b><span>Diploma in Applied AI &amp; Analytics<br>Apr 2025 to Apr 2028 (expected)</span></div>
+        <div class="item"><b>Distinctions</b><span>Back End Development<br>Fundamentals of Computing</span></div>
+      </div>
+      <div>
+        <h3>Competitions</h3>
+        <div class="item"><b>TrustGuard AI</b><span>OCBC Ignite 2026 · Tech Head · Shortlisted team. A tool that checks AI chatbot answers against current bank policy and flags claims it can't support.</span></div>
+        <div class="item"><b>APEX.AI</b><span>ESG Horizon FinTech Hackathon · Tech Head · Semi-finalist. Combined hiring and green-patent data to spot possible greenwashing.</span></div>
+        <div class="item"><b>Also</b><span>Volunteer tutor, SP Welfare Services Club (Apr to Sep 2026) · Poly 50 runner · Public speaking workshop</span></div>
+      </div>
+      <div>
+        <h3>Skills</h3>
+        <div class="skill-group"><b>Data</b><span>Python, Pandas, NumPy, SQL, MySQL, MongoDB, Power BI, DAX, Tableau, statsmodels</span></div>
+        <div class="skill-group"><b>Machine learning</b><span>scikit-learn, TensorFlow/Keras, CNN, RNN/LSTM, GAN, VAE, DQN, Optuna</span></div>
+        <div class="skill-group"><b>Tools</b><span>Git/GitHub, Jupyter, Node.js, Express.js, REST APIs, Matplotlib, Seaborn</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact" aria-labelledby="contact-title">
+  <div class="wrap">
+    <p class="eyebrow">03 / Contact</p>
+    <h2 id="contact-title">Got data with questions? Let's find out <span class="wave" data-wave>why.</span></h2>
+    <div class="moon3d" data-moon aria-hidden="true"></div>
+    <div class="contact-list">
+      <div><span class="mono">Email</span><div class="val"><a class="ulink" href="mailto:yyueliang55@gmail.com">yyueliang55@gmail.com</a><button class="copy" id="copyEmail" type="button">Copy</button></div></div>
+      <div><span class="mono">Phone</span><div class="val"><a class="ulink" href="tel:+6586614514">+65 8661 4514</a></div></div>
+      <div><span class="mono">Elsewhere</span><div class="val"><a class="ulink" href="https://www.linkedin.com/in/thawdarlinwai" target="_blank" rel="noopener">LinkedIn <span class="arrow">↗</span></a> <a class="ulink" href="https://github.com/yueliangg" target="_blank" rel="noopener">GitHub <span class="arrow">↗</span></a></div></div>
+      <div><span class="mono">Résumé</span><div class="val"><a class="ulink" href="resume/Thawdar_Lin_Wai_Data_Analyst_Resume.pdf" target="_blank" rel="noopener">Data Analyst <span class="arrow">↗</span></a> <a class="ulink" href="resume/Thawdar_Lin_Wai_AI_Engineer_Resume.pdf" target="_blank" rel="noopener">AI Engineer <span class="arrow">↗</span></a></div></div>
+    </div>
+    <footer>
+      <span>© 2026 Yue Liang (Thawdar Lin Wai)</span>
+      <a class="ulink mono" href="#top">Back to top ↑</a>
+    </footer>
+  </div>
+</section>
+</main>
+
+<div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-label="Project details" hidden></div>
+<canvas id="trail" aria-hidden="true"></canvas>
+<div id="dot" aria-hidden="true"></div>
+
+<script>
+(() => {
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const fine = matchMedia('(pointer: fine)').matches;
+const GH = 'https://github.com/yueliangg/';
+
+/* ================= Project data ================= */
+const P = [
+ {id:'catch', cat:'data', title:'Catch & Go', sub:'MRT location analytics for an AR game pilot', tags:['Power BI','DAX','Azure Maps'], role:'Team',
+  one:'Shortlisted five MRT areas by player reach and recommended a two-site pilot.',
+  intro:'Our team built an interactive Power BI report to choose where a mobile AR game should pilot its new creatures in Singapore.',
+  problem:'The busiest area is not always the best launch site. A good pilot needs nearby players, decent public Wi-Fi, easy MRT access and suitable public spots. We had a 200-resident survey plus MRT and Wi-Fi location data to decide with.',
+  steps:['Profiled the 200 survey respondents by age, gender, income and weekly gaming hours.','I built the Player Reach page: an Azure Maps view of reach by MRT area, a ranked Top 5 chart and a region slicer.','I defined estimated reach as the total household size of residents whose nearest station is each MRT.','The team then scored the shortlisted areas on Wi-Fi support, MRT distance and nearby public hotspots.'],
+  stats:[['31','estimated reach for Yishun, the highest'],['4 of 4','criteria met by Lakeside'],['2','pilot sites recommended']],
+  mine:'I owned Rising Insight 1, Potential Player Reach. Its Top 5 list became the shortlist for the rest of the report.',
+  tools:'Power BI, DAX, Azure Maps', repo:'catch-go_mrt_analysis', cover:{img:'assets/cg_reach.jpg'},
+  figs:[['assets/cg_reach.jpg','My Player Reach page in Power BI',1],['assets/cg_wifi.jpg','Wi-Fi support compared across shortlisted areas'],['assets/cg_rec.jpg','The final recommendation']]},
+ {id:'library', cat:'data', title:'Library Data Warehouse', sub:'Borrowing analytics in MySQL', tags:['MySQL','Star schema','ETL'], role:'Team',
+  one:'Found that 2025 growth came from members borrowing more often (+332%), not from new members.',
+  intro:'Turned 12,343 historical library loans into a MySQL star-schema warehouse, then queried it to explain how borrowing changed.',
+  problem:'The records had invalid values, inconsistent formats and mismatched status fields, so even simple counts could not be trusted. The library needed a clean warehouse that could answer planning questions about members, books and staff.',
+  steps:['The team fixed 11 data quality issues across member, loan, book-copy and staff records.','Designed a star schema with one FactLoan table and four dimensions: Member, Book, Staff and Time.','Built the ETL and reconciled the warehouse against the source: 12,343 loans in, 12,343 out.','I wrote all 8 analytical queries, covering trends, seasonality, genres, membership tiers, staff workload and borrower behaviour.'],
+  stats:[['+332%','loans per active borrower in 2025'],['+4.5%','growth in active borrowers'],['19.75%','of all loans came from the top 10 borrowers']],
+  mine:'I wrote all 8 analyses. I also migrated the book data into MongoDB and ran a research study on preventing double loans with MySQL row-level locking.',
+  tools:'MySQL, SQL, MongoDB, Excel', repo:'library-data-warehouse-sql', cover:{motif:'library'},
+  figs:[['motif:library','Average loans per active borrower, 2020 to 2025',1],['assets/lib_schema.jpg','The star schema'],['assets/lib_a8.jpg','Active borrowers and loans per borrower by year']]},
+ {id:'energy', cat:'data', title:'Energy Forecasting', sub:'Five years of monthly utility use', tags:['Python','SARIMA','Holt-Winters'], role:'Individual',
+  one:'Forecast electricity use within 3.3% error, five years ahead.',
+  intro:'Forecast a building’s monthly gas, electricity and water use for the next 60 months from 33 years of history (1990 to 2023).',
+  problem:'Budget planning needs to know what each utility will cost years ahead. The three series behave very differently, so one model would not fit all of them.',
+  steps:['Decomposed each series into trend, seasonality and noise, and found the three utilities move independently.','Split the data in time order into train, validation and test sets, and used ADF tests to check stationarity.','Compared ARIMA, SARIMA and Holt-Winters against Seasonal Naive and Mean benchmarks, tuning orders with grid search.','Evaluated the final models once on unseen test data, then produced 60-month forecasts with 95% intervals.'],
+  stats:[['3.3%','electricity test error (MAPE)'],['76%','less error from adding seasonality'],['<1%','extra gain from tuning']],
+  tools:'Python, pandas, statsmodels, scikit-learn', repo:'energy-consumption-forecasting', cover:{motif:'energy'},
+  figs:[['assets/en_forecast.jpg','60-month forecasts with 95% confidence intervals',1],['assets/en_season.jpg','Validation error with and without seasonality'],['assets/en_decomp.jpg','Electricity: trend, seasonality and residuals']]},
+ {id:'segments', cat:'data', title:'Customer Segmentation', sub:'Six groups from 200 mall customers', tags:['scikit-learn','K-Means','Clustering'], role:'Individual',
+  one:'Found a high-income, low-spending group worth targeting.',
+  intro:'Grouped 200 shopping-mall customers into segments a marketing team could actually act on.',
+  problem:'Income alone did not predict spending, so targeting by income bands would miss people. The mall needed groups based on how customers actually behave.',
+  steps:['Explored age, income and spending, then capped income outliers and scaled features inside scikit-learn pipelines.','Chose k = 6 using the elbow method, silhouette analysis and a dendrogram.','Compared K-Means with Agglomerative (Ward) clustering on Silhouette, Davies-Bouldin and Calinski-Harabasz scores.','Profiled each segment and ranked them by marketing priority.'],
+  stats:[['6','customer segments'],['0.443','silhouette score with K-Means'],['16.5%','of customers were Wealthy Savers']],
+  tools:'Python, pandas, scikit-learn, SciPy', repo:'customer-segmentation-clustering', cover:{motif:'segments'},
+  figs:[['assets/seg_clusters.jpg','The six segments by income, spending and age',1],['assets/seg_k.jpg','Choosing k with the elbow method and silhouette scores',1]]},
+ {id:'house', cat:'data', title:'House Price Prediction', sub:'What drives a sale price', tags:['scikit-learn','Ridge','Optuna'], role:'Individual',
+  one:'Cut prediction error by about $74k against a baseline, using fewer features.',
+  intro:'Built a regression model to predict house sale prices and explain which property features move the price most.',
+  problem:'Buyers and sellers want a fair price estimate, and they want to know why. With only 545 records, a complex model could easily overfit, so the model also had to stay explainable.',
+  steps:['Explored 545 property records and found floor area and number of toilets drive price most, with diminishing returns for very large homes.','Encoded categorical data and engineered 9 new features, including room ratios, interaction terms and squared terms.','Compared Linear Regression, Ridge, Random Forest and Gradient Boosting against a dummy baseline using RMSE, MAE and R².','Tuned Ridge with Optuna, read its standardised coefficients, then cut the model from 18 to 10 features.'],
+  stats:[['~$74k','lower error than the baseline'],['$152,482','final RMSE (R² ≈ 0.54)'],['18 → 10','features after selection']],
+  tools:'Python, pandas, scikit-learn, Optuna', repo:'House-Price-Prediction', cover:{motif:'house'},
+  figs:[['assets/hp_coef.jpg','How each feature moves the predicted price (Ridge coefficients)',1],['assets/hp_scatter.jpg','House area against sale price'],['assets/hp_rmse.jpg','Error of each Ridge variant']]},
+ {id:'income', cat:'data', title:'Income & Employment Analysis', sub:'Education, work and job satisfaction', tags:['Python','Pandas','Statistics'], role:'Team',
+  one:'Found career opportunities matter more to job ratings than work-life balance.',
+  intro:'Explored how education, occupation and workplace conditions relate to income, employability and job satisfaction in Singapore.',
+  problem:'Students choosing a course, and employers keeping staff, both want to know what actually drives pay and satisfaction. The answer was spread across three different public datasets.',
+  steps:['Combined graduate employment outcomes, MOM income statistics and Glassdoor employee reviews.','Cleaned the data and compared income across schools, occupations, age groups and qualifications.','Compared employment rates by degree field and income gaps by gender.','Measured how workplace factors relate to overall rating and to whether employees recommend the company.'],
+  stats:[['3','public datasets combined'],['0.66','correlation of career opportunities with overall rating'],['0.52','work-life balance, the weakest link to rating']],
+  mine:'Team project with one classmate.',
+  tools:'Python, pandas, NumPy, Matplotlib, Seaborn', repo:'sg-employment-analysis', cover:{motif:'income'},
+  figs:[['assets/inc_age.jpg','Median monthly income by age group and qualification',1],['assets/inc_corr.jpg','How workplace factors relate to each other'],['assets/inc_emp.jpg','Employment rates by degree field']]},
+ {id:'failure', cat:'ai', title:'Machine Failure Prediction', sub:'Catching rare breakdowns early', tags:['scikit-learn','Random Forest','Optuna'], role:'Individual',
+  one:'Caught 118 of 136 failures with only 2 false alarms.',
+  intro:'Predicted factory machine failures from sensor data, so maintenance can happen before a breakdown.',
+  problem:'Only 3.4% of the 20,000 machines were faulty. A model that always says "working" scores 96.6% accuracy and catches nothing, so I judged models on precision, recall and F1 instead.',
+  steps:['Found that faulty machines run under heavier load: higher torque (53.7 vs 39.9 Nm), lower speed and more tool wear.','Kept test data out of preprocessing: stratified split first, then imputation and scaling fitted on training data only.','Engineered Power (torque × speed) and Temp_Diff to capture load and heat.','Compared five classifiers against a dummy baseline, then tuned Random Forest with GridSearchCV and 5-fold cross-validation.'],
+  stats:[['118 / 136','failures caught'],['2','false alarms out of 3,864 working machines'],['0.922','F1 score']],
+  tools:'Python, pandas, scikit-learn, Optuna', repo:'machine-failure-prediction-ml', cover:{motif:'failure'},
+  figs:[['assets/mf_cm.jpg','Confusion matrices before and after tuning',1],['assets/mf_fi.jpg','What the tuned model relies on'],['assets/mf_dist.jpg','Only 3.4% of machines were faulty']]},
+ {id:'letters', cat:'ai', title:'Handwritten Letter Recognition', sub:'CNNs on EMNIST', tags:['TensorFlow','CNN','EMNIST'], role:'Individual',
+  one:'Raised test accuracy from 91.13% to 94.40%.',
+  intro:'Trained convolutional neural networks to read handwritten A to Z letters from the EMNIST dataset.',
+  problem:'Handwriting varies a lot, and some letters look almost identical. The goal was a model that generalises well, and an honest look at where it still fails.',
+  steps:['Preprocessed 88,000+ images: normalised pixels, fixed the dataset’s rotated orientation and encoded labels.','Built three CNN versions, adding batch normalisation, dropout, early stopping and data augmentation step by step.','Analysed the confusion matrix class by class to see which letters it mixed up.','Explored CBAM attention in a follow-up experiment aimed at the look-alike letters.'],
+  stats:[['94.40%','test accuracy'],['+3.27','points over the baseline model'],['I vs L','the hardest pair to tell apart']],
+  tools:'Python, TensorFlow/Keras, NumPy', repo:'handwritten-character-recognition-cnn', cover:{motif:'letters'},
+  figs:[['assets/cnn_letters.jpg','One sample per letter after fixing orientation',1],['assets/cnn_cm.jpg','Confusion matrix, A to Z'],['assets/cnn_il.jpg','Examples of the I and L confusion']]},
+ {id:'gan', cat:'ai', title:'CIFAR-10 Image Generation', sub:'VAE vs DCGAN', tags:['TensorFlow','DCGAN','VAE'], role:'Team',
+  one:'Lowered FID to 75.27 with an EMA DCGAN.',
+  intro:'Compared two generative models, a VAE and a DCGAN, on the CIFAR-10 dataset, then improved the stronger one.',
+  problem:'Generated images can look fine at a glance and still be poor, so we needed a fair, repeatable way to compare models instead of judging by eye.',
+  steps:['Built baseline VAE and DCGAN models in TensorFlow/Keras with fixed seeds and controlled data splits.','Compared them using FID for image quality and average pairwise MSE for variety, plus training diagnostics.','Tested DCGAN improvements one at a time and kept only those that lowered validation FID.','Used exponential moving average (EMA) weights for the final generator and produced 1,000 images.'],
+  stats:[['96.98','DCGAN FID, against 236.8 for the VAE'],['75.27','final EMA DCGAN FID'],['22.4%','lower FID than the baseline DCGAN']],
+  mine:'Team project with one classmate.',
+  tools:'Python, TensorFlow/Keras, NumPy, SciPy', repo:'cifar10-vae-dcgan', cover:{img:'assets/gan_grid.jpg'},
+  figs:[['assets/gan_grid.jpg','48 images generated by the final model'],['assets/gan_fid.jpg','Validation FID across experiments'],['assets/gan_interp.jpg','Moving smoothly between images in latent space',1]]},
+ {id:'pizza', cat:'ai', title:'Pizza Review Sentiment', sub:'SimpleRNN vs LSTM', tags:['TensorFlow','LSTM','NLP'], role:'Individual',
+  one:'Improved accuracy from 83.05% to 87.29% with an LSTM.',
+  intro:'Classified pizza reviews as negative, neutral or positive using recurrent neural networks.',
+  problem:'The reviews mix English and Malay, use negation like "not bad", and are sometimes labelled inconsistently. That makes sentiment harder than it looks.',
+  steps:['Explored 781 reviews: score distribution, language mix and class balance.','Built a SimpleRNN baseline, then an LSTM to handle longer context.','Watched the training curves for overfitting and tuned the LSTM on validation performance.','Read through misclassified reviews to understand failures caused by ambiguity, negation and noisy labels.'],
+  stats:[['87.29%','LSTM test accuracy'],['83.05%','SimpleRNN baseline'],['0.8736','weighted F1 score']],
+  tools:'Python, TensorFlow/Keras, NLP', repo:'pizza-review-sentiment-analysis', cover:{motif:'pizza'},
+  figs:[['assets/pz_sent.jpg','Sentiment by language',1],['assets/pz_cm.jpg','Confusion matrix for the improved LSTM'],['assets/pz_curves.jpg','Training curves, SimpleRNN and LSTM']]},
+ {id:'dqn', cat:'ai', title:'DQN Pendulum Control', sub:'Reinforcement learning under four gravities', tags:['TensorFlow','DQN','OpenAI Gym'], role:'Team',
+  one:'Beat random, zero-torque and rule-based controllers in every gravity setting.',
+  intro:'Trained a Deep Q-Network to swing up and balance a pendulum, then tested how changing gravity changes the problem.',
+  problem:'A pendulum needs continuous torque, but DQN picks from a fixed set of actions. We also wanted to know whether one trained setup holds up when the physics change.',
+  steps:['Turned continuous torque into 9 discrete actions from -2 to 2, and built a 3 → 128 → 128 → 9 network.','Trained and evaluated the agent under default, free-fall, anti-gravity and supergravity settings.','Tuned learning rate, target update frequency, epsilon decay and action count, then checked the chosen setup across 3 seeds.','Compared against Random, Zero-Torque and heuristic controllers, and plotted angle, velocity and torque to explain behaviour.'],
+  stats:[['-54.21','mean reward in free-fall, the easiest setting'],['-305.38','mean reward under supergravity, the hardest'],['9','actions, which beat a 5-action version']],
+  mine:'Team project with one classmate.',
+  tools:'Python, TensorFlow/Keras, NumPy, OpenAI Gym', repo:'dqn-pendulum-gravity', cover:{motif:'dqn'},
+  figs:[['assets/dqn_angle.jpg','The pendulum under each gravity setting with no torque',1],['assets/dqn_base.jpg','DQN against non-learning controllers',1]]},
+ {id:'runway', cat:'web', title:'Runway Star', sub:'A gamified wellness app', tags:['Node.js','Express','MySQL'], role:'Individual',
+  one:'Healthy habits earn points that buy outfits for competitive fashion shows.',
+  intro:'A full-stack app where users complete real-life wellness challenges, earn rewards, dress their avatar and compete in fashion shows.',
+  problem:'Wellness apps are easy to forget. I wanted a loop that keeps people coming back: real habits earn in-game rewards, and rewards lead to something fun to compete in.',
+  steps:['Designed a relational MySQL schema for users, challenges, inventory, currencies and events.','Built a RESTful API in Node.js and Express with full CRUD for each part of the game.','Added a dual currency system: points from challenges, diamonds for top fashion-show finishers.','Built the frontend pages, from sign-up and challenges to the store, profile and fashion show rankings, and tested the API with Postman.'],
+  stats:[['3','habits tracked: sleep, hydration and exercise'],['2','currencies: points and diamonds'],['7','app pages, from sign-up to the runway']],
+  tools:'Node.js, Express.js, MySQL, Bootstrap, Postman', repo:'RunwayStar-WellnessChallengeGamification', cover:{img:'assets/rs_cover.jpg'},
+  figs:[['assets/rs_items.jpg','Fashion items users can buy with their rewards',1],['assets/rs_avatars.jpg','Avatar options'],['assets/rs_bg_pink.jpg','One of the app backgrounds']]}
+];
+
+/* ================= SVG helpers ================= */
+const STAR = '<svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 0c.6 6.3 5.7 11.4 12 12-6.3.6-11.4 5.7-12 12-.6-6.3-5.7-11.4-12-12C6.3 11.4 11.4 6.3 12 0z"/></svg>';
+let uid = 0;
+function moonSVG(){
+  const i = ++uid;
+  return `<svg viewBox="0 0 200 200"><defs>
+   <linearGradient id="mg${i}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset=".42" stop-color="#E2DAFF"/><stop offset="1" stop-color="#8E7BFF"/></linearGradient>
+   <linearGradient id="me${i}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset="1" stop-color="#B9A8FF" stop-opacity=".2"/></linearGradient>
+   <radialGradient id="mh${i}" cx=".3" cy=".28" r=".55"><stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset=".6" stop-color="#fff" stop-opacity="0"/></radialGradient>
+   <mask id="mm${i}"><rect width="200" height="200" fill="white"/><circle cx="132" cy="74" r="72" fill="black"/></mask></defs>
+   <g mask="url(#mm${i})"><circle cx="100" cy="100" r="82" fill="url(#mg${i})"/><circle cx="100" cy="100" r="82" fill="url(#mh${i})"/><circle cx="100" cy="100" r="80.5" fill="none" stroke="url(#me${i})" stroke-width="3"/></g></svg>`;
+}
+document.querySelectorAll('[data-moon]').forEach(el => el.innerHTML = '<div class="ring"></div><div class="spin">' + moonSVG() + '</div>');
+
+function motif(kind){
+  const bg = '<rect width="400" height="275" fill="url(#bgm)"/>';
+  const defs = '<defs><linearGradient id="bgm" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F1ECFF"/><stop offset="1" stop-color="#E3E9FF"/></linearGradient></defs>';
+  let g = '';
+  if(kind==='library'){
+    const v=[2.12,2.37,3.02,3.80,6.01,25.99], yrs=[2020,2021,2022,2023,2024,2025], max=26, x0=52, w=40, gap=14, base=228, h=170;
+    v.forEach((d,i)=>{const bh=d/max*h, x=x0+i*(w+gap); g+=`<rect x="${x}" y="${base-bh}" width="${w}" height="${bh}" rx="7" fill="${i===5?'#5B3F9E':'#C9BCFF'}"/><text x="${x+w/2}" y="${base+20}" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="11" fill="#5E5575">${yrs[i]}</text><text x="${x+w/2}" y="${base-bh-8}" text-anchor="middle" font-family="Outfit,sans-serif" font-size="12" fill="#2A2140">${d.toFixed(2)}</text>`});
+    g+=`<text x="40" y="38" font-family="Instrument Serif,serif" font-style="italic" font-size="38" fill="#5B3F9E">+332%</text><text x="40" y="58" font-family="Outfit,sans-serif" font-size="12" fill="#5E5575">average loans per active borrower</text>`;
+  }
+  if(kind==='energy'){
+    let d='M30 190', band='', pts=[];
+    for(let x=30;x<=370;x+=3){const t=(x-30)/340; const y=200-t*70-Math.sin(t*Math.PI*18)*18*(.7+t*.5); pts.push([x,y]); d+=` L${x} ${y.toFixed(1)}`;}
+    const fx=270; const up=pts.filter(p=>p[0]>=fx).map(p=>`${p[0]} ${(p[1]-14-(p[0]-fx)*.12).toFixed(1)}`), dn=pts.filter(p=>p[0]>=fx).map(p=>`${p[0]} ${(p[1]+14+(p[0]-fx)*.12).toFixed(1)}`).reverse();
+    band=`<path d="M${up.join(' L')} L${dn.join(' L')} Z" fill="#7C5CFF" opacity=".16"/>`;
+    g+=band+`<line x1="${fx}" y1="60" x2="${fx}" y2="240" stroke="#7C5CFF" stroke-dasharray="4 5" opacity=".5"/><path d="${d}" fill="none" stroke="#5B3F9E" stroke-width="2.4" stroke-linejoin="round"/><text x="${fx+8}" y="74" font-family="JetBrains Mono,monospace" font-size="10" fill="#5E5575">FORECAST</text><text x="34" y="44" font-family="Instrument Serif,serif" font-style="italic" font-size="38" fill="#5B3F9E">3.3%</text><text x="34" y="64" font-family="Outfit,sans-serif" font-size="12" fill="#5E5575">electricity test error</text>`;
+  }
+  if(kind==='segments'){
+    let s=11; const r=()=>{s=(s*9301+49297)%233280; return s/233280;};
+    const C=[[90,80],[300,70],[200,140],[95,215],[305,210],[200,232]], col=['#5B3F9E','#7C5CFF','#A08BFF','#C3B4FF','#6C6CF0','#E4A6DB'];
+    C.forEach((c,k)=>{for(let i=0;i<22;i++){const a=r()*6.28, rr=r()*30; g+=`<circle cx="${(c[0]+Math.cos(a)*rr*1.4).toFixed(1)}" cy="${(c[1]+Math.sin(a)*rr).toFixed(1)}" r="4.2" fill="${col[k]}" opacity=".85"/>`;}});
+    g+=`<text x="372" y="262" text-anchor="end" font-family="JetBrains Mono,monospace" font-size="10" fill="#5E5575">6 SEGMENTS · SILHOUETTE 0.443</text>`;
+  }
+  if(kind==='failure'){
+    const cols=17, cell=17, x0=56, y0=86;
+    for(let i=0;i<136;i++){const x=x0+(i%cols)*cell, y=y0+Math.floor(i/cols)*cell; g+= i<118 ? `<circle cx="${x}" cy="${y}" r="5.6" fill="#5B3F9E"/>` : `<circle cx="${x}" cy="${y}" r="5" fill="none" stroke="#D88BCF" stroke-width="1.8"/>`;}
+    g+=`<text x="56" y="50" font-family="Instrument Serif,serif" font-style="italic" font-size="38" fill="#5B3F9E">118 / 136</text><text x="56" y="70" font-family="Outfit,sans-serif" font-size="12" fill="#5E5575">faulty machines caught by the tuned model</text>`;
+  }
+  if(kind==='letters'){
+    const L='ABCDEFGHJKMNOPQRSTUVWXYZ'; let t='';
+    for(let i=0;i<48;i++){const x=24+(i%12)*31, y=40+Math.floor(i/12)*62; t+=`<text x="${x}" y="${y}" font-family="Instrument Serif,serif" font-size="22" fill="#2A2140" opacity=".09">${L[i%L.length]}</text>`;}
+    g+=t+`<text x="120" y="190" font-family="Instrument Serif,serif" font-size="170" fill="#5B3F9E">I</text><text x="190" y="190" font-family="Instrument Serif,serif" font-style="italic" font-size="170" fill="#7C5CFF">L</text><text x="200" y="250" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="10" fill="#5E5575">94.40% TEST ACCURACY</text>`;
+  }
+  if(kind==='pizza'){
+    const rows=[['Negative',201,'#D88BCF'],['Neutral',233,'#A08BFF'],['Positive',347,'#5B3F9E']];
+    rows.forEach((r,i)=>{const y=96+i*52, w=r[1]/347*230; g+=`<text x="40" y="${y+17}" font-family="Outfit,sans-serif" font-size="13" fill="#2A2140">${r[0]}</text><rect x="118" y="${y}" width="${w}" height="26" rx="8" fill="${r[2]}"/><text x="${118+w+8}" y="${y+18}" font-family="JetBrains Mono,monospace" font-size="11" fill="#5E5575">${r[1]}</text>`;});
+    g+=`<text x="40" y="50" font-family="Instrument Serif,serif" font-style="italic" font-size="38" fill="#5B3F9E">87.29%</text><text x="40" y="70" font-family="Outfit,sans-serif" font-size="12" fill="#5E5575">LSTM accuracy on 781 reviews</text>`;
+  }
+  if(kind==='house'){
+    let sd=5; const r=()=>{sd=(sd*9301+49297)%233280; return sd/233280;};
+    for(let i=0;i<70;i++){const x=50+r()*310, base=230-(x-50)*.48, y=base+(r()-.5)*70; g+=`<circle cx="${x.toFixed(1)}" cy="${Math.max(80,Math.min(250,y)).toFixed(1)}" r="4" fill="#A08BFF" opacity=".7"/>`;}
+    g+=`<line x1="50" y1="232" x2="362" y2="84" stroke="#5B3F9E" stroke-width="2.6" stroke-linecap="round"/><text x="40" y="50" font-family="Instrument Serif,serif" font-style="italic" font-size="38" fill="#5B3F9E">−$74k</text><text x="40" y="70" font-family="Outfit,sans-serif" font-size="12" fill="#5E5575">error, compared with the baseline</text>`;
+  }
+  if(kind==='income'){
+    const lines=[[[60,226],[120,214],[180,206],[240,203],[300,205],[360,210]],[[60,222],[120,200],[180,184],[240,174],[300,170],[360,172]],[[60,212],[120,176],[180,140],[240,110],[300,92],[360,98]]];
+    const col=['#D88BCF','#A08BFF','#5B3F9E'];
+    lines.forEach((l,k)=>{g+=`<polyline points="${l.map(p=>p.join(',')).join(' ')}" fill="none" stroke="${col[k]}" stroke-width="2.6" stroke-linejoin="round"/>`; l.forEach(p=>g+=`<circle cx="${p[0]}" cy="${p[1]}" r="3.5" fill="${col[k]}"/>`);});
+    g+=`<text x="366" y="102" text-anchor="end" font-family="JetBrains Mono,monospace" font-size="10" fill="#5E5575">DEGREE</text><text x="40" y="50" font-family="Instrument Serif,serif" font-style="italic" font-size="38" fill="#5B3F9E">0.66</text><text x="40" y="70" font-family="Outfit,sans-serif" font-size="12" fill="#5E5575">career opportunities vs overall rating</text>`;
+  }
+  if(kind==='dqn'){
+    const px=250, py=70, L=150; const ang=[[-38,'#D88BCF','0'],[-14,'#A08BFF','−10'],[12,'#7C5CFF','10'],[34,'#5B3F9E','15']];
+    g+=`<circle cx="${px}" cy="${py}" r="5" fill="#2A2140"/><path d="M${px-L*Math.sin(.75)} ${py+L*Math.cos(.75)} A ${L} ${L} 0 0 0 ${px+L*Math.sin(.68)} ${py+L*Math.cos(.68)}" fill="none" stroke="#2A2140" stroke-dasharray="3 6" opacity=".25"/>`;
+    ang.forEach(([a,c,lab])=>{const t=a*Math.PI/180, x=px+L*Math.sin(t), y=py+L*Math.cos(t); g+=`<line x1="${px}" y1="${py}" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}" stroke="${c}" stroke-width="2.2" opacity=".85"/><circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="11" fill="${c}"/><text x="${x.toFixed(1)}" y="${(y+30).toFixed(1)}" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="10" fill="#5E5575">g=${lab}</text>`;});
+    g+=`<text x="34" y="50" font-family="Instrument Serif,serif" font-style="italic" font-size="38" fill="#5B3F9E">4 gravities</text><text x="34" y="70" font-family="Outfit,sans-serif" font-size="12" fill="#5E5575">one DQN agent</text>`;
+  }
+  return `<svg viewBox="0 0 400 275" role="img" aria-label="Illustration for ${kind}">${defs}${bg}${g}</svg>`;
+}
+
+/* ================= Render cards ================= */
+const track = document.getElementById('track');
+const pad = n => String(n).padStart(2,'0');
+track.innerHTML = P.map((p,i)=>`
+  <a class="card" href="#p-${p.id}" data-id="${p.id}" data-cat="${p.cat}" aria-label="Open project: ${p.title}">
+    <div class="cover">${p.cover.img?`<img src="${p.cover.img}" alt="" loading="lazy">`:motif(p.cover.motif)}</div>
+    <div class="card-body">
+      <span class="mono">${p.tags.join(' · ')}</span>
+      <h3>${p.title}</h3>
+      <p>${p.one}</p>
+      <div class="card-foot"><span class="chip">${p.role}</span><span class="open-lbl">Open project <span class="arrow">↗</span></span></div>
+    </div>
+  </a>`).join('');
+
+/* ================= Slider ================= */
+const cards = [...track.children];
+const counter = document.getElementById('counter'), prev = document.getElementById('prev'), next = document.getElementById('next');
+const visible = () => cards.filter(c=>!c.hidden);
+function step(){ const v=visible(); if(v.length<2) return v[0]?v[0].offsetWidth:300; return v[1].offsetLeft - v[0].offsetLeft; }
+function updateCounter(){
+  const v=visible(), s=step(); const idx=Math.min(v.length-1, Math.round(track.scrollLeft / s));
+  counter.textContent = `${pad(idx+1)} / ${pad(v.length)}`;
+  prev.disabled = track.scrollLeft < 4;
+  next.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 4;
+}
+prev.addEventListener('click',()=>track.scrollBy({left:-step()}));
+next.addEventListener('click',()=>track.scrollBy({left:step()}));
+track.addEventListener('scroll',()=>requestAnimationFrame(updateCounter),{passive:true});
+addEventListener('resize',updateCounter);
+document.querySelectorAll('.filters button').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.filters button').forEach(x=>x.setAttribute('aria-selected', x===b));
+  const f=b.dataset.filter; cards.forEach(c=>c.hidden = !(f==='all' || c.dataset.cat===f));
+  track.scrollTo({left:0,behavior:'auto'}); updateCounter();
+}));
+updateCounter();
+
+/* ================= Project overlay ================= */
+const overlay = document.getElementById('overlay');
+let current = null, lastCard = null;
+function figHTML(f){
+  const media = f[0].startsWith('motif:') ? motif(f[0].slice(6)) : `<img src="${f[0]}" alt="${f[1]}" loading="lazy">`;
+  return `<figure class="${f[2]?'wide':''}">${media}<figcaption>${f[1]}</figcaption></figure>`;
+}
+function render(p){
+  const i = P.indexOf(p), nx = P[(i+1)%P.length];
+  const hero = p.cover.img ? `<img src="${p.cover.img}" alt="${p.title} cover">` : motif(p.cover.motif);
+  return `
+  <div class="ov-bar">
+    <button class="back" data-close><span aria-hidden="true">←</span> All work</button>
+    <span class="mono">${pad(i+1)} / ${pad(P.length)}</span>
+    <button class="x" data-close aria-label="Close project"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 5l14 14M19 5L5 19"/></svg></button>
+  </div>
+  <article class="pd">
+    <p class="eyebrow">${p.tags.join(' · ')} · ${p.role}</p>
+    <h2 class="pd-title">${p.title}</h2>
+    <p class="pd-sub">${p.sub}</p>
+    <p class="pd-intro">${p.intro}</p>
+    <dl class="pd-meta">
+      <div><dt>Type</dt><dd>${({data:'Data analytics',ai:'AI &amp; machine learning',web:'Web development'})[p.cat]}</dd></div>
+      <div><dt>Role</dt><dd>${p.role} project</dd></div>
+      <div><dt>Tools</dt><dd>${p.tools}</dd></div>
+      <div><dt>Code</dt><dd><a class="ulink" href="${GH+p.repo}" target="_blank" rel="noopener">GitHub repo ↗</a></dd></div>
+    </dl>
+    <div class="pd-hero">${hero}</div>
+    <section class="pd-sec"><div class="n">01</div><div><h3>The problem</h3><p>${p.problem}</p></div></section>
+    <section class="pd-sec"><div class="n">02</div><div><h3>What I did</h3><ol class="steps">${p.steps.map(s=>`<li>${s}</li>`).join('')}</ol>${p.mine?`<div class="mine"><span class="mono">My part</span>${p.mine}</div>`:''}</div></section>
+    <section class="pd-sec"><div class="n">03</div><div><h3>The result</h3><div class="stats">${p.stats.map(s=>`<div class="stat"><b>${s[0]}</b><span>${s[1]}</span></div>`).join('')}</div></div></section>
+    <div class="figs">${p.figs.map(figHTML).join('')}</div>
+    <nav class="pd-next" aria-label="Next project">
+      <a class="btn ghost" href="${GH+p.repo}" target="_blank" rel="noopener">View the code <span class="arrow">↗</span></a>
+      <button data-goto="${nx.id}"><span class="mono">Next project</span><b>${nx.title} →</b></button>
+    </nav>
+  </article>`;
+}
+function clipFrom(el){
+  const r = el.getBoundingClientRect(), vw = innerWidth, vh = innerHeight;
+  return `inset(${Math.max(0,r.top)}px ${Math.max(0,vw-r.right)}px ${Math.max(0,vh-r.bottom)}px ${Math.max(0,r.left)}px round 22px)`;
+}
+function open(id, card, push=true){
+  const p = P.find(x=>x.id===id); if(!p) return;
+  current = p; lastCard = card || cards.find(c=>c.dataset.id===id);
+  overlay.innerHTML = render(p); overlay.hidden = false; overlay.scrollTop = 0; document.body.classList.add('locked');
+  if(push) history.replaceState(null,'','#p-'+id);
+  const go = () => overlay.querySelector('.x').focus({preventScroll:true});
+  if(!reduce && card && card.offsetParent){
+    overlay.animate([{clipPath:clipFrom(card.querySelector('.cover'))},{clipPath:'inset(0px 0px 0px 0px round 0px)'}],{duration:700,easing:'cubic-bezier(.75,0,.2,1)'});
+    overlay.querySelector('.pd').animate([{opacity:0,transform:'translateY(24px)'},{opacity:1,transform:'none'}],{duration:500,delay:380,easing:'ease-out',fill:'backwards'});
+    setTimeout(go,700);
+  } else go();
+}
+function close(){
+  if(!current) return;
+  const card = lastCard && !lastCard.hidden ? lastCard : null;
+  const done = () => { overlay.hidden = true; overlay.innerHTML=''; document.body.classList.remove('locked'); current=null; history.replaceState(null,'',location.pathname+location.search); if(card) card.focus({preventScroll:true}); };
+  if(!reduce && card){
+    const target = clipFrom(card.querySelector('.cover'));
+    const a = overlay.animate([{clipPath:'inset(0px 0px 0px 0px round 0px)'},{clipPath:target}],{duration:520,easing:'cubic-bezier(.6,0,.2,1)'});
+    a.onfinish = done;
+  } else done();
+}
+cards.forEach(c=>c.addEventListener('click',e=>{
+  e.preventDefault();
+  if(reduce){ open(c.dataset.id,c); return; }
+  c.classList.remove('flash'); void c.offsetWidth; c.classList.add('flash');
+  setTimeout(()=>{ c.classList.remove('flash'); open(c.dataset.id,c); },300);
+}));
+overlay.addEventListener('click',e=>{
+  if(e.target.closest('[data-close]')) close();
+  const g = e.target.closest('[data-goto]');
+  if(g){ const id=g.dataset.goto; overlay.querySelector('.pd').animate([{opacity:1},{opacity:0}],{duration:reduce?1:220}).onfinish=()=>{ open(id,null); }; }
+});
+addEventListener('keydown',e=>{ if(e.key==='Escape' && current) close(); });
+function fromHash(){ const m = location.hash.match(/^#p-([a-z]+)$/); if(m) open(m[1],null,false); else if(current) close(); }
+addEventListener('hashchange',fromHash); fromHash();
+
+/* ================= Résumé menu & copy ================= */
+const rb = document.getElementById('resumeBtn'), rm = document.getElementById('resumeMenu');
+rb.addEventListener('click',e=>{ e.stopPropagation(); const o = rm.classList.toggle('open'); rb.setAttribute('aria-expanded',o); });
+document.addEventListener('click',e=>{ if(!rm.contains(e.target)){ rm.classList.remove('open'); rb.setAttribute('aria-expanded',false);} });
+const cp = document.getElementById('copyEmail');
+cp.addEventListener('click',async()=>{ try{ await navigator.clipboard.writeText('yyueliang55@gmail.com'); cp.textContent='Copied'; }catch(_){ cp.textContent='Select and copy'; } setTimeout(()=>cp.textContent='Copy',1800); });
+const nav = document.getElementById('nav');
+addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>20),{passive:true});
+
+/* ================= Wavy words with sparkles ================= */
+function waveify(el){
+  const txt = el.textContent; el.textContent=''; el.setAttribute('aria-label',txt);
+  const chars = [...txt].map((ch,i)=>{ const s=document.createElement('span'); s.className='ch'; s.setAttribute('aria-hidden','true'); s.textContent=ch; el.appendChild(s); return s; });
+  chars.forEach((s,i)=>{
+    const y = Math.sin(i*.7)*0.06, r = Math.sin(i*.7+1.1)*3;
+    const mix = (Math.sin(i*.9)+1)/2;
+    s.style.color = mix>.5 ? '#5B3F9E' : '#7656C4';
+    s.dataset.final = `translateY(${y}em) rotate(${r}deg)`;
+    s.style.transform = s.dataset.final;
+  });
+  [[-6,-30],[48,-46],[96,-24],[104,40],[20,52]].forEach(([x,y],k)=>{
+    const sp=document.createElement('span'); sp.className='spark'; sp.innerHTML=STAR; sp.style.left=x+'%'; sp.style.top=y+'%';
+    sp.style.width = sp.style.height = (k%2?9:14)+'px'; sp.style.opacity = k<2 ? .55 : .3; sp.setAttribute('aria-hidden','true'); el.appendChild(sp);
+  });
+  el._play = () => {
+    if(reduce) return;
+    chars.forEach((s,i)=>s.animate([{transform:`translateY(.45em) rotate(${(i%2?-1:1)*8}deg)`},{transform:s.dataset.final}],{duration:900,delay:i*45,easing:'cubic-bezier(.2,1.3,.4,1)',fill:'backwards'}));
+    el.querySelectorAll('.spark').forEach((sp,k)=>sp.animate([{transform:'scale(0) rotate(0deg)',opacity:0},{transform:'scale(1.5) rotate(90deg)',opacity:1,offset:.5},{transform:'scale(1) rotate(180deg)'}],{duration:1100,delay:300+k*140,easing:'ease-out',fill:'backwards'}));
+  };
+  el.addEventListener('mouseenter',()=>{ if(reduce) return; el.querySelectorAll('.spark').forEach((sp,k)=>sp.animate([{transform:'scale(1) rotate(0)'},{transform:'scale(1.6) rotate(180deg)'},{transform:'scale(1) rotate(360deg)'}],{duration:800,delay:k*60})); });
+}
+const waves = [...document.querySelectorAll('[data-wave]')];
+waves.forEach(waveify);
+if('IntersectionObserver' in window){
+  const io = new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ e.target._play(); io.unobserve(e.target);} }),{threshold:.6});
+  waves.forEach(w=>io.observe(w));
+}
+
+/* ================= Liquid hero (WebGL) ================= */
+(function liquid(){
+  const cv = document.getElementById('liquid'); const hero = cv.parentElement;
+  const gl = cv.getContext('webgl',{antialias:false,premultipliedAlpha:false});
+  if(!gl || matchMedia('(max-width: 640px)').matches){ cv.remove(); return; }
+  const vs = 'attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}';
+  const fs = `precision mediump float;uniform vec2 R;uniform float T;uniform vec2 M;uniform float H;
+  float h(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
+  float n(vec2 p){vec2 i=floor(p),f=fract(p);vec2 u=f*f*(3.-2.*f);return mix(mix(h(i),h(i+vec2(1.,0.)),u.x),mix(h(i+vec2(0.,1.)),h(i+vec2(1.,1.)),u.x),u.y);}
+  float fb(vec2 p){float v=0.,a=.5;for(int i=0;i<5;i++){v+=a*n(p);p=p*2.03+vec2(1.7,9.2);a*=.5;}return v;}
+  void main(){
+    vec2 uv=gl_FragCoord.xy/R; float asp=R.x/R.y; vec2 p=vec2(uv.x*asp,uv.y); vec2 m=vec2(M.x*asp,M.y);
+    float d=distance(p,m); float lens=smoothstep(.32,0.,d)*H;
+    p+=(p-m)*lens*.42;
+    p+=normalize(p-m+1e-4)*sin(d*30.-T*2.6)*.005*smoothstep(.45,0.,d)*H;
+    float t=T*.035;
+    vec2 q=vec2(fb(p*1.5+t),fb(p*1.5+vec2(5.2,1.3)-t));
+    vec2 r=vec2(fb(p*1.5+3.*q+vec2(1.7,9.2)+t*1.4),fb(p*1.5+3.*q+vec2(8.3,2.8)-t));
+    float f=fb(p*1.3+3.*r);
+    vec3 lav=vec3(.957,.941,.984),ice=vec3(.87,.90,1.),vio=vec3(.80,.73,1.),pk=vec3(.97,.91,.96),wh=vec3(1.);
+    vec3 c=mix(lav,ice,smoothstep(.25,.8,q.x));
+    c=mix(c,vio,smoothstep(.55,.95,f)*.6);
+    c=mix(c,pk,smoothstep(.45,.9,r.y)*.4);
+    c=mix(c,wh,smoothstep(.6,1.,length(q))*.75);
+    c+=vec3(1.)*pow(lens,2.)*.12;
+    gl_FragColor=vec4(c,1.);
+  }`;
+  function sh(t,s){const o=gl.createShader(t);gl.shaderSource(o,s);gl.compileShader(o);return gl.getShaderParameter(o,gl.COMPILE_STATUS)?o:null;}
+  const v=sh(gl.VERTEX_SHADER,vs), f=sh(gl.FRAGMENT_SHADER,fs); if(!v||!f){cv.remove();return;}
+  const pr=gl.createProgram(); gl.attachShader(pr,v); gl.attachShader(pr,f); gl.linkProgram(pr); if(!gl.getProgramParameter(pr,gl.LINK_STATUS)){cv.remove();return;}
+  gl.useProgram(pr);
+  const b=gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER,b); gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,-1,1,1,-1,1,1]),gl.STATIC_DRAW);
+  const loc=gl.getAttribLocation(pr,'p'); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc,2,gl.FLOAT,false,0,0);
+  const uR=gl.getUniformLocation(pr,'R'),uT=gl.getUniformLocation(pr,'T'),uM=gl.getUniformLocation(pr,'M'),uH=gl.getUniformLocation(pr,'H');
+  const scale=.5; let W=0,Hh=0;
+  function size(){W=Math.max(1,Math.floor(hero.clientWidth*scale));Hh=Math.max(1,Math.floor(hero.clientHeight*scale));cv.width=W;cv.height=Hh;gl.viewport(0,0,W,Hh);}
+  size(); addEventListener('resize',size);
+  let mx=.75,my=.6,tx=.75,ty=.6,hov=0,ht=0,run=true,t0=performance.now();
+  hero.addEventListener('pointermove',e=>{const r=hero.getBoundingClientRect();tx=(e.clientX-r.left)/r.width;ty=1-(e.clientY-r.top)/r.height;ht=1;});
+  hero.addEventListener('pointerleave',()=>{ht=0;});
+  new IntersectionObserver(es=>{run=es[0].isIntersecting; if(run&&!reduce) requestAnimationFrame(loop);}).observe(hero);
+  function draw(t){mx+=(tx-mx)*.07;my+=(ty-my)*.07;hov+=(ht-hov)*.05;gl.uniform2f(uR,W,Hh);gl.uniform1f(uT,t);gl.uniform2f(uM,mx,my);gl.uniform1f(uH,hov);gl.drawArrays(gl.TRIANGLES,0,6);}
+  function loop(now){ if(!run) return; draw((now-t0)/1000); requestAnimationFrame(loop); }
+  if(reduce) draw(12); else requestAnimationFrame(loop);
+})();
+
+/* ================= Cursor dot + star trail ================= */
+(function cursor(){
+  if(!fine || reduce){ document.getElementById('trail').remove(); document.getElementById('dot').remove(); return; }
+  const cv=document.getElementById('trail'), ctx=cv.getContext('2d'), dot=document.getElementById('dot');
+  const dpr=Math.min(devicePixelRatio||1,2);
+  function size(){cv.width=innerWidth*dpr;cv.height=innerHeight*dpr;cv.style.width=innerWidth+'px';cv.style.height=innerHeight+'px';ctx.setTransform(dpr,0,0,dpr,0,0);}
+  size(); addEventListener('resize',size);
+  const parts=[]; const cols=['#7C5CFF','#5B3F9E','#B9A8FF','#E4A6DB'];
+  let x=-100,y=-100,dx=-100,dy=-100,lx=0,ly=0,active=false;
+  addEventListener('pointermove',e=>{
+    if(e.pointerType!=='mouse') return;
+    x=e.clientX;y=e.clientY; if(!active){dx=x;dy=y;active=true;dot.classList.add('on');}
+    const dist=Math.hypot(x-lx,y-ly);
+    if(dist>14){ lx=x;ly=y; parts.push({x,y,vx:(Math.random()-.5)*.6,vy:Math.random()*.6+.2,life:0,max:700+Math.random()*300,s:3+Math.random()*3.5,r:Math.random()*3,c:cols[(Math.random()*cols.length)|0]}); if(parts.length>40) parts.shift(); }
+    const t=e.target;
+    dot.classList.toggle('big', !!t.closest('a,button'));
+    dot.classList.toggle('faint', !t.closest('a,button') && !!t.closest('p,li,dd,figcaption,.skill-group span,.item span'));
+  },{passive:true});
+  document.addEventListener('pointerleave',()=>{dot.classList.remove('on');active=false;});
+  function drawStar(px,py,s,rot){ctx.save();ctx.translate(px,py);ctx.rotate(rot);ctx.beginPath();ctx.moveTo(0,-s*1.7);for(let i=0;i<4;i++){ctx.quadraticCurveTo(0,0,s*1.7,0);ctx.rotate(Math.PI/2);}ctx.closePath();ctx.fill();ctx.restore();}
+  let last=performance.now();
+  (function loop(now){
+    const dt=now-last; last=now;
+    dx+=(x-dx)*.22; dy+=(y-dy)*.22; dot.style.transform=`translate(${dx}px,${dy}px)`;
+    ctx.clearRect(0,0,innerWidth,innerHeight);
+    for(let i=parts.length-1;i>=0;i--){const p=parts[i];p.life+=dt;if(p.life>p.max){parts.splice(i,1);continue;}
+      const k=p.life/p.max; p.x+=p.vx; p.y+=p.vy; p.r+=.02;
+      ctx.globalAlpha=(1-k)*.9; ctx.fillStyle=p.c; drawStar(p.x,p.y,p.s*(1-k*.5),p.r);}
+    ctx.globalAlpha=1;
+    requestAnimationFrame(loop);
+  })(last);
+})();
+})();
+</script>
+</body>
+</html>
